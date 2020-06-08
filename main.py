@@ -22,17 +22,19 @@ def afficher_la_partie(players, plateau, playerName=""):
 	if playerName: print("C'est au tour de", playerName, "de jouer")
 
 
-def extract_played_card(paquet, cartes_a_terre, carte):
-	if carte.tours_restants == 0:
-		carte.played = True
-		paquet.remove(carte)
-		cartes_a_terre.append(carte)
-	else:
-		paquet[paquet.index(carte)].tours_restants -= 1
+def extract_played_cards(plateau, cartes_a_terre):
+	for carte in plateau:
+		if carte.tours_restants == 0:
+			carte.played = True
+			paquet.remove(carte)
+			cartes_a_terre.append(carte)
+		else:
+			carte.tours_restants -= 1
 
 #-------------------------------------
 #main :
 
+#Initialisations
 players = []
 cartes_a_terre = []
 plateau = []
@@ -46,7 +48,9 @@ for i in range(int(input("Combien de joueurs: " ))):
 	name = input("Nom ? ")
 	players.append(Player(i, name, distribuerUneMain()))
 
+#boucle de jeu
 while partie_en_cours(players, paquet):	
+	
 	for player in players:
 		afficher_la_partie(players, plateau, player.name)
 		input()
@@ -59,6 +63,7 @@ while partie_en_cours(players, paquet):
 			else: player.interact_with_cards(card)
 				
 	for player in players: player.maj_vie()
+	extract_played_cards(plateau, cartes_a_terre)
 
 print(max(players, key = lambda p: p.estime).name,"est le grand gagnant !")
 input()

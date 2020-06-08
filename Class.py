@@ -75,9 +75,10 @@ class Carte:
 		self.name = name
 		self.pts_defense = pts_defense
 		self.pts_attaque = pts_attaque
-		self.played = False
+		self.played = False #n'a pas encore été utilisé, mais pourra l'être si possibilité de récupérer des cartes à terre
 		self.mode = ""
 		self.owner = ID
+		self.tours_restants = 0
 
 		
 	def attaque_speciale(self):
@@ -88,6 +89,6 @@ class Carte:
 
 
 class Prof(Carte):
-	def __init__(self, name, pts_vie, pts_attaque):
-		super(Prof, self).__init__(name, 50, 5)
+	def __init__(self, name, pts_vie, pts_attaque, ID):
+		super(Prof, self).__init__(name, pts_vie, pts_attaque, ID)
 
